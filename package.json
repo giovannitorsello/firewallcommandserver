@@ -1,0 +1,40 @@
+{
+  "name": "Firewall Command Server",
+  "version": "1.0.0",
+  "author": "Giovanni Torsello <giovanni.torsello@gmail.com>",
+  "keywords": [
+    "util",
+    "functional",
+    "server",
+    "client",
+    "browser"
+  ],
+  "contributors": [],
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "child_process": "^1.0.2",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "http": "0.0.1-security",
+    "https": "^1.0.0",
+    "udp": "^1.0.0"
+  },
+  "devDependencies": {},
+  "main": "main.js",
+  "scripts": {
+    "start-dev": "node .",
+    "debug": "nodemon --inspect ./"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/giovannitorsello/firewallcommandserver.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/giovannitorsello/firewallcommandserver/issues"
+  },
+  "homepage": "https://github.com/giovannitorsello/firewallcommandserver#readme",
+  "description": "",
+  "postcss": {}
+}

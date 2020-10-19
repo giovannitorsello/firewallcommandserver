@@ -1,0 +1,13 @@
+{
+    "port" : 61234,
+    "secrets": "WifinetcomSRL",
+    "logfile": "/var/log/fwcs.log",
+    "pathScripts": "/opt/script",
+    "interfaces": ["wlp3s0","eno1"],
+    "commands": {
+        "delete_bandwidth": "./script/delete_bandwidth.sh",
+        "replace_bandwidth": "./script/replace_bandwidth.sh",
+        "enable": "./script/enable_device.sh",
+        "disable": "./script/disable_device.sh"
+    }
+}
