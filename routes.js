@@ -5,9 +5,9 @@ function execScript(script, dev, res) {
         exec(script, (err, stdout, stderr) => {
             if (err) {
                 console.error(err);
-                res.send({ status: "error", msg: err, result: dev });
+                res.send({ status: "error", msg: err.message, result: dev });
             } else {
-                res.send({ status: "OK", msg: "Device enabled", result: {} });s
+                res.send({ status: "OK", msg: "Device modified", result: dev });
             }
         });
     }
@@ -16,30 +16,34 @@ function execScript(script, dev, res) {
 }
 
 module.exports = {
-    load(app, stats) {
+    load(app, stats, conf) {
         app.get("/getStats", function (req, res) {
             res.send({status: "OK", msg: "Statistics router information", statistics: stats.getStats()})
         });
 
         app.post("/device/enable", function (req, res) {
+            var secret=req.body.secret;
             var dev = req.body.deviceCustomer;
             var script = conf.pathScripts + "/enable_device.sh "+dev.ipv4+" "+dev.mac;
             execScript(script, dev, res)
         });
 
         app.post("/device/disable", function (req, res) {
+            var secret=req.body.secret;
             var dev = req.body.deviceCustomer;
             var script = conf.pathScripts + "/disable_device.sh " +dev.ipv4+" "+dev.mac;
             execScript(script, dev, res)
         });
 
         app.post("/device/replace_bandwidth", function (req, res) {
+            var secret=req.body.secret;
             var dev = req.body.deviceCustomer;
             var script = conf.pathScripts + "/replace_bandwidth.sh " +dev.ipv4+" "+dev.mac;
             execScript(script, dev, res)
         });
 
         app.post("/device/delete_bandwidth", function (req, res) {
+            var secret=req.body.secret;            
             var dev = req.body.deviceCustomer;
             var script = conf.pathScripts + "/delete_bandwidth.sh " +dev.ipv4+" "+dev.mac;
             execScript(script, dev, res)

@@ -23,7 +23,7 @@ config.load(function (conf) {
 
     statistics.startStatistics(conf);
     
-    routes.load(appCommand,statistics);
+    routes.load(appCommand,statistics,conf);
 
     
 

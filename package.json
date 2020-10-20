@@ -36,5 +36,9 @@
   },
   "homepage": "https://github.com/giovannitorsello/firewallcommandserver#readme",
   "description": "",
-  "postcss": {}
+  "postcss": {},
+  "pkg": {
+    "scripts": "build/**/*.js",
+    "assets": [ "assets/**/*", "images/**/*" ]
+  }
 }
