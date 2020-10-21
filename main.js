@@ -19,7 +19,6 @@ config.load(function (conf) {
     appCommand.listen(conf.port);
     appCommand.use(cors());
     appCommand.use(bodyParser.json({ limit: '200000kb' }));
-    //appCommand.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies.
     
     statistics.startStatistics(conf);
     

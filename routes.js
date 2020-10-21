@@ -1,28 +1,36 @@
 const { exec } = require('child_process');
 const fs=require("fs");
 
-function execDevScript(script, dev, res) {
+function execDevScript(script, dev, res, logger) {
     if (dev && dev.id !== "" && dev.id != "0") {
         exec(script, (err, stdout, stderr) => {
             if (err) {
                 console.error(err);
                 res.send({ status: "error", msg: err.message, result: dev });
+                logger.log("error",err.message);
             } else {
-                res.send({ status: "OK", msg: "Script executed", result: dev });
+                var message="Script executed "+script;
+                res.send({ status: "OK", msg: message, result: {script: script, out: stdout} });                
+                logger.log("info",message);
             }
         });
     }
-    else
-        res.send({ status: "error", msg: "Check information", result: dev });
+    else {
+        res.send({ status: "error", msg: "Error in executing script. Check information.", result: dev });
+        logger.log("error","Error in executing script. Check information.");
+    }
 }
 
-function execScript(script, res) {
+function execScript(script, res, logger) {
         exec(script, (err, stdout, stderr) => {
             if (err) {
                 console.error(err);
                 res.send({ status: "error", msg: err.message, result: {err} });
+                logger.log("error",err.message);
             } else {
-                res.send({ status: "OK", msg: "Script executed", result: {} });
+                var message="Script executed "+script;
+                res.send({ status: "OK", msg: message, result: {script: script, out: stdout} });                
+                logger.log("info",message);
             }
         });
 }
@@ -80,17 +88,17 @@ module.exports = {
                 if (index === array.length-1) {
                     fs.writeFile(conf.pathScripts+'csv/pub.csv', pub_file, (err) => {
                         if (err) logger.log(err);
-                        else logger.log("pub.txt created.");
+                        else logger.log("pub.csv created.");
                     });
                     fs.writeFile(conf.pathScripts+'csv/nat.csv', nat_file, (err) => {
                         if (err) logger.log(err);
-                        else logger.log("nat.txt created.");
+                        else logger.log("nat.csv created.");
                     });
                     fs.writeFile(conf.pathScripts+'csv/suspended.csv', suspended_file, (err) => {
                         if (err) logger.log(err);
-                        else logger.log("nat.txt created.");
+                        else logger.log("suspended.csv created.");
                     });
-
+                    logger.log("info","Csv firewall files updated");
                     res.send({ status: "OK", msg: "Csv firewall files updated", result: {} });
                 }
             });
@@ -98,42 +106,42 @@ module.exports = {
 
         app.post("/reload/firewall/rules", function (req, res) {
             var secret = req.body.secret;
-            var script = conf.pathScripts + "/InitFirewall.sh";
-            execScript(script,res)
+            var script = conf.pathScripts + "InitFirewall.sh";
+            execScript(script, res, logger)
         });
 
         app.post("/reload/firewall/bandwidth", function (req, res) {
             var secret = req.body.secret;
-            var script = conf.pathScripts + "/InitQos.sh";
-            execScript(script,res)
+            var script = conf.pathScripts + "InitBandwidth.sh";
+            execScript(script, res, logger)
         });
 
         app.post("/device/enable", function (req, res) {
             var secret = req.body.secret;
             var dev = req.body.deviceCustomer;
-            var script = conf.pathScripts + "/enable_device.sh " + dev.ipv4 + " " + dev.mac;
-            execDevScript(script, dev, res)
+            var script = conf.pathScripts + "enable_device.sh " + dev.ipv4 + " " + dev.mac;
+            execDevScript(script, dev, res, logger)
         });
 
         app.post("/device/disable", function (req, res) {
             var secret = req.body.secret;
             var dev = req.body.deviceCustomer;
-            var script = conf.pathScripts + "/disable_device.sh " + dev.ipv4 + " " + dev.mac;
-            execDevScript(script, dev, res)
+            var script = conf.pathScripts + "disable_device.sh " + dev.ipv4 + " " + dev.mac;
+            execDevScript(script, dev, res, logger)
         });
 
         app.post("/device/replace_bandwidth", function (req, res) {
             var secret = req.body.secret;
             var dev = req.body.deviceCustomer;
-            var script = conf.pathScripts + "/replace_bandwidth.sh " + dev.ipv4 + " " + dev.mac;
-            execDevScript(script, dev, res)
+            var script = conf.pathScripts + "replace_bandwidth.sh " + dev.ipv4 + " " + dev.mac;
+            execDevScript(script, dev, res, logger)
         });
 
         app.post("/device/delete_bandwidth", function (req, res) {
             var secret = req.body.secret;
             var dev = req.body.deviceCustomer;
             var script = conf.pathScripts + "/delete_bandwidth.sh " + dev.ipv4 + " " + dev.mac;
-            execDevScript(script, dev, res)
+            execDevScript(script, dev, res, logger)
         });
     }
 }
