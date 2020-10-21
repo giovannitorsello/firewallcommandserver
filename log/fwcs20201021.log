@@ -1,0 +1,8 @@
+{"level":"info","time":"2020-10-21T11:04:09+02:00","message":"Firewall Command Server started.","service":"user-service"}
+{"level":"info","time":"2020-10-21T11:04:09+02:00","message":"Command server is listening on port 61234","service":"user-service"}
+{"level":"info","time":"2020-10-21T11:04:15+02:00","message":"Received SIGINT signal","service":"user-service"}
+{"level":"info","time":"2020-10-21T11:04:16+02:00","message":"Exit","service":"user-service"}
+{"level":"info","time":"2020-10-21T11:05:09+02:00","message":"Firewall Command Server started.","service":"user-service"}
+{"level":"info","time":"2020-10-21T11:05:09+02:00","message":"Command server is listening on port 61234","service":"user-service"}
+{"level":"info","time":"2020-10-21T11:05:11+02:00","message":"Received SIGINT signal","service":"user-service"}
+{"level":"info","time":"2020-10-21T11:05:12+02:00","message":"Exit","service":"user-service"}

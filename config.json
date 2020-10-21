@@ -1,8 +1,10 @@
 {
+    "production": false,
     "port" : 61234,
     "secrets": "WifinetcomSRL",
-    "logfile": "/var/log/fwcs.log",
-    "pathScripts": "/home/torsello/Documenti/Attivita/WIFINETCOM_SRL/SviluppoSoftware/CrmCom2/FirewallCommandServer/scripts",
+    "logfilecombinedprefix": "fwcs",
+    "logfilepath": "./log/",
+    "pathScripts": "/home/torsello/Documenti/Attivita/WIFINETCOM_SRL/SviluppoSoftware/CrmCom2/FirewallCommandServer/scripts/",
     "interfaces": ["wlp3s0","eno1"],
     "commands": {
         "delete_bandwidth": "./script/delete_bandwidth.sh",
