@@ -1,4 +1,10 @@
 node_modules/
+script/csv/
+bin/
+log/
+*.json
 *.jpg
 *.pdf
+*.csv
+
 
